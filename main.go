@@ -1,46 +1,35 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
+	"github.com/gin-gonic/gin"
 	"net/http"
-	"os"
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
+	router := gin.Default()
 
-	for {
-		fmt.Print("Enter API endpoint (or type 'exit' to quit): ")
-		input, err := reader.ReadString('\n')
-		if err != nil {
-			fmt.Println("Error reading input", err)
-			continue
-		}
+	router.GET("/users", handleUserRequest)
 
-		input = input[:len(input)-1] // remove new line character
+	router.Run(":8080")
+}
 
-		if input == "exit" {
-			break
-		}
+func handleUserRequest(c *gin.Context) {
+	permissionGranted := checkPermission()
 
-		resp, err := http.Get(input)
-		if err != nil {
-			fmt.Println("Error sending request:", err)
-			continue
-		}
-
-		defer resp.Body.Close()
-
-		if resp.StatusCode == http.StatusOK {
-			fmt.Println("Response:")
-			scanner := bufio.NewScanner(resp.Body)
-			for scanner.Scan() {
-				fmt.Println(scanner.Text())
-			}
-		} else {
-			fmt.Println("Request failed with status code: ", resp.StatusCode)
-		}
+	if permissionGranted {
+		http.Redirect(
+			c.Writer,
+			c.Request,
+			"http://localhost:3000/users",
+			http.StatusTemporaryRedirect,
+		)
+	} else {
+		c.JSON(http.StatusForbidden, gin.H{
+			"Error": "Permission denied",
+		})
 	}
 }
 
+func checkPermission() bool {
+	return false
+}
