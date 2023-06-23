@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 type Request struct {
@@ -20,11 +21,24 @@ var (
 	permissionMap  map[Request]bool
 	permissionLock sync.RWMutex
 	requests       chan Request
+	externalAPI    string
+	endpoint       string
 )
 
 func main() {
+	// Load environment variables from .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading .env file", err)
+		return
+	}
+
 	// Initialize the permission map
 	permissionMap = make(map[Request]bool)
+
+	// Retrieve the external API address and endpoint from .env vars
+	externalAPI = os.Getenv("EXTERNAL_API_ADDRESS")
+	endpoint = os.Getenv("EXTERNAL_API_ENDPOINT")
 
 	// Create a new Gin router
 	router := gin.Default()
@@ -63,10 +77,22 @@ func checkPermissionMiddleware(c *gin.Context) {
 }
 
 func handleUserRequest(c *gin.Context) {
-	// Handle the user request
-	c.JSON(http.StatusOK, gin.H{
-		"message": "User request handled successfully",
-	})
+	// forward the request to the external API if access is granted
+	if permissionGranted() {
+		http.Redirect(c.Writer, c.Request, externalAPI+endpoint, http.StatusTemporaryRedirect)
+	} else {
+		// Respond with an error message or denial
+		c.JSON(http.StatusForbidden, gin.H{
+			"error": "Permission denied :p",
+		})
+	}
+}
+
+func permissionGranted() bool {
+	permissionLock.RLock()
+	permission := permissionMap[Request{Method: "GET", Path: "/users"}]
+	permissionLock.RUnlock()
+	return permission
 }
 
 func readApprovalInput() {
