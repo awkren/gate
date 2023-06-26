@@ -31,30 +31,3 @@ func CheckPermissionMiddleware(c *gin.Context) {
 		c.Abort()
 	}
 }
-
-// original code
-
-// func checkPermissionMiddleware(c *gin.Context) {
-// 	req := Request{
-// 		Method: c.Request.Method,
-// 		Path:   c.Request.URL.Path,
-// 	}
-//
-// 	// Send the request to the permission check channel
-// 	requests <- req
-//
-// 	permissionLock.RLock()
-// 	permission, exists := permissionMap[req]
-// 	permissionLock.RUnlock()
-//
-// 	if exists && permission {
-// 		// Continue processing the request
-// 		c.Next()
-// 	} else {
-// 		// Respond with an error message or denial
-// 		c.JSON(http.StatusForbidden, gin.H{
-// 			"error": "Permission denied",
-// 		})
-// 		c.Abort()
-// 	}
-// }

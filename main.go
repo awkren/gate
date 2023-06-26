@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -27,13 +28,26 @@ func main() {
 	// Retrieve the external API address and endpoint from .env vars
 	handlers.ExternalAPI = os.Getenv("EXTERNAL_API_ADDRESS")
 	handlers.Endpoint = os.Getenv("EXTERNAL_API_ENDPOINT")
+	handlers.UserEndpoint = os.Getenv("USER_ENDPOINT")
 
 	// Create a new Gin router
 	router := gin.Default()
 
 	// Define your API routes
 	router.Use(middlewares.CheckPermissionMiddleware)
-	router.GET("/users", handlers.HandleUserRequest)
+
+	// create a group for the users endpoint
+	usersGroup := router.Group(handlers.UserEndpoint)
+	{
+		usersGroup.GET("", handlers.HandleUserRequest)
+	}
+
+	// handle requests to other endpoints
+	router.NoRoute(func(c *gin.Context) {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Endpoint not found :p",
+		})
+	})
 
 	// Start the server
 	router.Run(":8080")

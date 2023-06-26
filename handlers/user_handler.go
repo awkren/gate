@@ -13,6 +13,7 @@ var (
 	Requests       chan models.Request
 	ExternalAPI    string
 	Endpoint       string
+	UserEndpoint   string
 )
 
 func HandleUserRequest(c *gin.Context) {
@@ -37,18 +38,3 @@ func HandleUserRequest(c *gin.Context) {
 		})
 	}
 }
-
-// original code
-
-// func handleUserRequest(c *gin.Context) {
-// 	// forward the request to the external API if access is granted
-// 	if permissionGranted() {
-// 		http.Redirect(c.Writer, c.Request, externalAPI+endpoint, http.StatusTemporaryRedirect)
-// 	} else {
-// 		// Respond with an error message or denial
-// 		c.JSON(http.StatusForbidden, gin.H{
-// 			"error": "Permission denied :p",
-// 		})
-// 	}
-// }
-//
