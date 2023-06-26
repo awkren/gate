@@ -27,25 +27,3 @@ func ReadApprovalInput() {
 		fmt.Printf("Permission for request %s %s set to %v\n", req.Method, req.Path, permission)
 	}
 }
-
-// original code
-
-// func readApprovalInput() {
-// 	reader := bufio.NewReader(os.Stdin)
-//
-// 	for req := range requests {
-// 		fmt.Printf("Received request: %s %s\n", req.Method, req.Path)
-// 		fmt.Print("Do you want to grant permission for this request? (Y/N): ")
-//
-// 		decision, _ := reader.ReadString('\n')
-// 		decision = strings.TrimSpace(strings.ToLower(decision))
-//
-// 		permission := decision == "y" || decision == "yes"
-//
-// 		permissionLock.Lock()
-// 		permissionMap[req] = permission
-// 		permissionLock.Unlock()
-//
-// 		fmt.Printf("Permission for request %s %s set to %v\n", req.Method, req.Path, permission)
-// 	}
-// }
