@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
+	"time"
 )
 
 func CheckPermissionMiddleware(c *gin.Context) {
@@ -47,8 +48,11 @@ func logRequest(req models.Request) error {
 	}
 	defer file.Close()
 
+	// get timestamp
+	getTime := time.Now()
+
 	// format the log entry
-	logEntry := fmt.Sprintf("Timestamp: not yet, Method: %s, Path: %s\n", req.Method, req.Path)
+	logEntry := fmt.Sprintf("Timestamp: %s, Method: %s, Path: %s\n", getTime.Format(time.RFC822), req.Method, req.Path)
 
 	// write the log entry to the file
 	_, err = file.WriteString(logEntry)
