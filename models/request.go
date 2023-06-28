@@ -1,6 +1,8 @@
 package models
 
+import ()
+
 type Request struct {
-	Method string
-	Path   string
+	Method string `json:"method"`
+	Path   string `json:"path"`
 }
