@@ -1,10 +1,3 @@
-Timestamp: 28 Jun 23 20:12 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:12 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:13 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:13 -03, Method: POST, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: GET, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: POST, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: POST, Path: /users
-Timestamp: 28 Jun 23 20:17 -03, Method: GET, Path: /users
+Timestamp: 28 Jun 23 21:12 -03, Method: GET, Path: /users | Status: DENIED
+Timestamp: 28 Jun 23 21:13 -03, Method: GET, Path: /users | Status: APPROVED
+Timestamp: 28 Jun 23 21:13 -03, Method: GET, Path: /users | Status: DENIED

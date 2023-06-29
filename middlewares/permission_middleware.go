@@ -16,18 +16,18 @@ func CheckPermissionMiddleware(c *gin.Context) {
 		Path:   c.Request.URL.Path,
 	}
 
-	// log the request into a file
-	err := logRequest(req)
-	if err != nil {
-		fmt.Println("Error man kkkkkk")
-	}
-
 	// Send the request to the permission check channel
 	handlers.Requests <- req
 
 	handlers.PermissionLock.RLock()
 	permission, exists := handlers.PermissionMap[req]
 	handlers.PermissionLock.RUnlock()
+
+	// log the request into a file
+	err := logRequest(req, permission)
+	if err != nil {
+		fmt.Println("Error man kkkkkk")
+	}
 
 	if exists && permission {
 		// Continue processing the request
@@ -41,7 +41,7 @@ func CheckPermissionMiddleware(c *gin.Context) {
 	}
 }
 
-func logRequest(req models.Request) error {
+func logRequest(req models.Request, permission bool) error {
 	file, err := os.OpenFile("request.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return err
@@ -51,8 +51,14 @@ func logRequest(req models.Request) error {
 	// get timestamp
 	getTime := time.Now()
 
+	// determine access status based on permission
+	status := "DENIED"
+	if permission {
+		status = "APPROVED"
+	}
+
 	// format the log entry
-	logEntry := fmt.Sprintf("Timestamp: %s, Method: %s, Path: %s\n", getTime.Format(time.RFC822), req.Method, req.Path)
+	logEntry := fmt.Sprintf("Timestamp: %s, Method: %s, Path: %s | Status: %s\n", getTime.Format(time.RFC822), req.Method, req.Path, status)
 
 	// write the log entry to the file
 	_, err = file.WriteString(logEntry)
