@@ -20,10 +20,7 @@ var (
 func HandleUserRequest(c *gin.Context) {
 	PermissionGranted := func() bool {
 		PermissionLock.RLock()
-		// permission := PermissionMap[models.Request{Method: "GET", Path: "/users"}]
-
 		getUserEndpoint := os.Getenv("USER_ENDPOINT")
-
 		permission := PermissionMap[models.Request{Method: "GET", Path: getUserEndpoint}]
 		PermissionLock.RUnlock()
 		return permission
