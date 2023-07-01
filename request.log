@@ -31,3 +31,13 @@ Timestamp: 30 Jun 23 10:30 -03, Method: GET, Path: /abc | Status: APPROVED
 Timestamp: 30 Jun 23 10:30 -03, Method: GET, Path: /abc | Status: DENIED
 Timestamp: 30 Jun 23 10:30 -03, Method: GET, Path: /abc | Status: DENIED
 Timestamp: 30 Jun 23 10:30 -03, Method: GET, Path: /abc | Status: APPROVED
+Timestamp: 30 Jun 23 22:33 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:33 -03, Method: GET, Path: /favicon.ico | Status: DENIED
+Timestamp: 30 Jun 23 22:34 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:34 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:34 -03, Method: GET, Path: /abc | Status: APPROVED
+Timestamp: 30 Jun 23 22:34 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: APPROVED
+Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: APPROVED

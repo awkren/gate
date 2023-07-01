@@ -33,6 +33,9 @@ func main() {
 	// Create a new Gin router
 	router := gin.Default()
 
+	// apply the ip filtering to all routes
+	router.Use(middlewares.IPFilterMiddleware)
+
 	// Define your API routes
 	router.Use(middlewares.CheckPermissionMiddleware)
 
