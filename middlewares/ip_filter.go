@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"fmt"
+	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -29,11 +30,27 @@ func IPFilterMiddleware(c *gin.Context) {
 }
 
 func isIPAllowed(ip string, allowedIPs []string) bool {
+	// testing
+	if ip == "127.0.0.1" || ip == "::1" {
+		return true
+	}
+
 	// check if the ip ip is in the allowedIPs slice
 	for _, allowedIP := range allowedIPs {
 		if ip == allowedIP {
 			return true
 		}
 	}
+
+	// check if the ip is a valid IPv4 or IPv6 address
+	parsedIP := net.ParseIP(ip)
+	if parsedIP != nil {
+		for _, allowedIP := range allowedIPs {
+			if parsedIP.Equal(net.ParseIP(allowedIP)) {
+				return true
+			}
+		}
+	}
+
 	return false
 }

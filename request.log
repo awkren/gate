@@ -41,3 +41,5 @@ Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: DENIED
 Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: APPROVED
 Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: DENIED
 Timestamp: 30 Jun 23 22:40 -03, Method: GET, Path: /abc | Status: APPROVED
+Timestamp: 30 Jun 23 23:03 -03, Method: GET, Path: /abc | Status: DENIED
+Timestamp: 30 Jun 23 23:03 -03, Method: GET, Path: /abc | Status: APPROVED
