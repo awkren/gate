@@ -31,9 +31,9 @@ func IPFilterMiddleware(c *gin.Context) {
 
 func isIPAllowed(ip string, allowedIPs []string) bool {
 	// testing
-	if ip == "127.0.0.1" || ip == "::1" {
-		return true
-	}
+	// if ip == "127.0.0.1" || ip == "::1" {
+	// 	return true
+	// }
 
 	// check if the ip ip is in the allowedIPs slice
 	for _, allowedIP := range allowedIPs {
